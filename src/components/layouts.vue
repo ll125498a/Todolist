@@ -2,20 +2,19 @@
     <div>
         <section class="app-body"> 
             <section class="archive-control">
-        <span>{{list.length-seen.length}} of {{list.length}} remaining</span>
+        <span>{{seen}} of {{list.length}} remaining</span>
         <p>[ <a href="" @click.prevent="Remove">Remove Completed Items</a> ]</p>
         </section>
         <ul class="unstyled">
-            <li v-for="item in list" :key="item.id">
-               <input type="checkbox" v-model="seen" v-bind:value="item.id" @click="item.show=!item.show">
-                <span :class="{donetrue:item.show}">{{item.text}}</span>
-                </li>
+            <li v-for="(item,index) in list" :key="item.index">
+                <menus :preand="item.text" :index="index" @func="Inputshow"></menus>
+                 </li>
         </ul>
         <form class="todo-form">
         <input type="text" v-model="todo" placeholder="Enter new ToDo item">
         <br/>
         <input type="button" @click="Addtask" value="Add Task">
-    </form>
+        </form>
     </section>
     </div>
 </template>
@@ -25,51 +24,65 @@ export default {
         return{
             todo:'',
             list:[],
-            seen:[],
-            cound:0,
-        }
+            seen:0
+        }  
     },
     methods:{
         Addtask(){
-            var car={text:this.todo,id:this.cound,show:false}
-            this.cound++
+            var car={text:this.todo,done:false}
             this.list.push(car)
             this.todo=''
+            this.seen++
         },
         Remove(){
-                for (var i in this.seen)
-                {
-                    for(var j =0;j<this.list.length;j++){
-                        if(this.seen[i]===this.list[j].id)
+            console.log(this.list)
+
+                    for(var j =this.list.length-1;j>=0;j--)
+                    {
+                        if(this.list[j].done)
                         {
+                            console.log(j)
                             this.list.splice(j,1)
                         }
-                }
-        } 
-        this.seen=[]
+                
+                    } 
+        },
+        Inputshow(data,index){
+            if(data)
+            {
+                this.list[index].done=data
+                this.seen--
+            }else
+            {
+                this.list[index].done=data
+                this.seen++
+            }
+            
         }
+
     },
     watch:{
             list:function()
             {
-                const parsed=JSON.stringify(this.list)
+            const parsed=JSON.stringify(this.list)
             localStorage.setItem('todos',parsed)
             },
-            seen:function()
-            {
-
-            }
 },
     mounted(){
             if(localStorage.getItem('todos'))
             {
             this.list=JSON.parse(localStorage.getItem('todos'))
-            this.cound=this.list[this.list.length-1].id+1
+            this.seen=this.list.length
             }
 
         },
+        components:{
+            menus
+        }
+        
 }
 
+import menus from './menus'
 </script>
 <style>
 </style>
