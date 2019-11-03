@@ -26,6 +26,7 @@ var store= new Vuex.Store({
       localStorage.setItem('todos',parsed)
     },
     Removelist(state){
+      
       for(var j =state.list.length-1;j>=0;j--)
       {
         if(state.list[j].show)
@@ -34,6 +35,7 @@ var store= new Vuex.Store({
         }
       }
       const parsed=JSON.stringify(state.list)
+      console.log(parsed)
       localStorage.setItem('todos',parsed)
     },
     remaining(state){

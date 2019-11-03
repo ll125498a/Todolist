@@ -25,6 +25,7 @@ export default {
   methods:{
     Remove(){
      this.$store.commit('Removelist')
+     this.$forceUpdate();
     },
   },
 }
