@@ -55,10 +55,6 @@ export default {
                 const parsed=JSON.stringify(this.list)
             localStorage.setItem('todos',parsed)
             },
-            seen:function()
-            {
-
-            }
 },
     mounted(){
             if(localStorage.getItem('todos'))
