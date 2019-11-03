@@ -22,7 +22,6 @@ var store= new Vuex.Store({
     Addlist(state,todo)
     {
       state.list.push(todo)
-      console.log(state.list)
       const parsed=JSON.stringify(state.list)
       localStorage.setItem('todos',parsed)
     },

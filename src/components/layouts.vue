@@ -20,7 +20,9 @@ export default {
     methods:{
         Addtask(){
             this.$store.commit("Addlist",{text:this.todo,show:false})
+            this.$store.commit("remaining")
             this.todo=''
+            
         },
     }
 }

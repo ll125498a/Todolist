@@ -1,6 +1,6 @@
 <template>
  <ul class="unstyled">
-            <li v-for="item in $store.state.list" :key="item.id">
+            <li v-for="item in $store.state.list" :key="item.index">
                <input type="checkbox" @click="item.show=!item.show;count()">
                 <span :class="{donetrue:item.show}">{{item.text}}</span>
                 </li>
