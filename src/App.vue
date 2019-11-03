@@ -1,10 +1,10 @@
 <template>
   <div id="app" class="container">
-    <header class="app-header">
-      <h1 class="app-title">{{ appTitle }}</h1>
-      <h1 class="app-headline">{{ appHeadline }}</h1>
-    </header>
-    <router-view></router-view>
+    <Head></Head>
+       <menus></menus>
+     <layouts></layouts>
+   
+  
   </div>
 </template>
 
@@ -12,11 +12,22 @@
 export default {
   data(){
     return{
-    appTitle:"Katie's Awesome ToDo App",
-    appHeadline:"This one will save to local storage!"
     }
+  },
+  mounted(){
+          this.$store.commit("Gainlist")
+         //this.$store.commit("remaining")
+      },
+  components:{
+    menus,
+    layouts,
+    Head
   }
 }
+import menus from './components/menus'
+import layouts from './components/layouts'
+import Head from './components/Head'
+
 </script>
 
 <style>

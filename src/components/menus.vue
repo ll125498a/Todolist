@@ -1,29 +1,25 @@
 <template>
-<div>
-        <input type="checkbox" v-model="done">
-        <span v-bind:class="{ donetrue: done }">{{preand}}  {{index}}</span>
-</div>
+ <ul class="unstyled">
+            <li v-for="item in $store.state.list" :key="item.id">
+               <input type="checkbox" @click="item.show=!item.show;count()">
+                <span :class="{donetrue:item.show}">{{item.text}}</span>
+                </li>
+</ul>
 </template>
 <script>
   export default {
       data(){
           return{
-              done:false,
-              cound:this.index
           }
       },
       methods:{
-         
-
+          count()
+          {
+              this.$store.commit("remaining")
+          }
       },
       props:{
-          preand:String,
-          index:Number
       },
-      watch:{
-           done: function(){
-              this.$emit('func',this.done,this.cound)
-          }
-      }
-  };
+
+  }
 </script>
